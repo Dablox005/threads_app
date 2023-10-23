@@ -16,7 +16,6 @@ async function Page() {
     //getActivity
     const activity = await getActivity(userInfo._id);
 
-const Page = async () => {
     return (
       <section>
           <h1 className="head-text">Activity</h1>
@@ -50,5 +49,4 @@ const Page = async () => {
       </section>
     )
   }
-}
   export default Page
