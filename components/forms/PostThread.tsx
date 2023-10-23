@@ -23,25 +23,16 @@ import { createThread } from '@/lib/actions/thread.actions';
 
 
 interface Props {
-    user: {
-        id: string;
-        objectId: string;
-        username: string;
-        name: string;
-        bio: string;
-        image: string;
-    };
-    btnTitle: string;
+    userId: string
 }
 
 
 
-function PostThread({ userId }: { userId: string }) {
-   
+function PostThread({ userId }: Props) {
     const router = useRouter();
     const pathname = usePathname();  
     
-    const form = useForm({
+    const form = useForm<z.infer<typeof ThreadValidation>>({
         resolver: zodResolver(ThreadValidation), 
         defaultValues: {
           thread: '',

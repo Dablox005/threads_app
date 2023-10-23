@@ -14,9 +14,9 @@ import Link from "next/link";
         id: string;
     }
     community:  {
-        name: string;
-        image: string;
-        id: string;
+      id: string;
+      name: string;
+      image: string;
     } | null ;   
     createdAt: string
     comments: {
@@ -38,7 +38,7 @@ import Link from "next/link";
     community,
     createdAt,
     comments,
-    isComment
+    isComment,
  } : Props) => {
       return (
         <article className={`flex w-full flex-col rounded-xl p-7 ${isComment ? 'px-0 xs:px-7' : ' bg-dark-2'}`}>
@@ -75,7 +75,7 @@ import Link from "next/link";
                               className="cursor-pointer object-contain"
                             />
 
-                            <Link href={`/profile/${author.id}`}>
+                            <Link href={`/thread/${id}`}>
                             <Image 
                               src="/assets/reply.svg"
                               alt="reply"
@@ -84,6 +84,7 @@ import Link from "next/link";
                               className="cursor-pointer object-contain"
                             />
                             </Link>
+
                             <Image 
                               src="/assets/repost.svg"
                               alt="repost"
