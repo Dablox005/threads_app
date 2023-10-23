@@ -14,6 +14,8 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from "zod"
 
+import { useOrganization } from "@clerk/nextjs";
+
 import { Textarea } from '../ui/textarea';
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -30,7 +32,8 @@ interface Props {
 
 function PostThread({ userId }: Props) {
     const router = useRouter();
-    const pathname = usePathname();  
+    const pathname = usePathname(); 
+    const { organization }  = useOrganization();
     
     const form = useForm<z.infer<typeof ThreadValidation>>({
         resolver: zodResolver(ThreadValidation), 
@@ -42,12 +45,13 @@ function PostThread({ userId }: Props) {
     })
 
     const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
-       await createThread({
-         text: values.thread,
-         author: userId, 
-         communityId: null,
-         path: pathname
-    });
+      {console.log('ORG ID: ', organization)};
+        await createThread({
+          text: values.thread,
+          author: userId, 
+          communityId: organization ? organization.id : null,
+          path: pathname
+        });
 
      router.push("/")
     }
